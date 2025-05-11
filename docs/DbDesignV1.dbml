@@ -1,0 +1,103 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table User_account{
+
+    id uuid [pk]
+    username varchar(100)
+    email varchar(100)
+    password varchar(100)
+    first_name varchar(100)
+    last_name varchar(100)
+    birth_date date 
+    role_id  int 
+}
+
+
+
+Table Role 
+{
+    id autoincrement  [pk]
+    name varchar(100 )
+
+}
+
+Table Photo {
+
+    id uuid [pk]
+    path varchar(100)
+}
+
+
+Table Clothes_type{
+    id autoincrement  [pk]
+    Name varchar(100)
+
+}
+
+
+Table Clothes_color{
+    id autoincrement  [pk]
+    name varchar(100)
+}
+
+Table Clothes_size{
+    id autoincrement  [pk]
+    name varchar(100)
+
+}
+Table clothes{
+id uuid [pk]
+name varchar(100)
+clothes_type_id int 
+joined_At date
+photo_id int 
+description varchar(200)
+}
+Table clothes_variant{
+id uuid [pk]
+clothes_id uuid 
+clothes_color_id int 
+clothes_size_id int 
+stock int 
+price_per_unit decimal(5,2)
+
+}
+
+Table Cart{
+id uuid [pk]
+user_id uuid
+clothes_variant_id uuid
+addedAt date 
+quantity int 
+
+}
+Table Order {
+  order_id uuid [pk]
+  user_id uuid 
+  order_date date 
+  total_amount decimal(10,2) 
+  status varchar(100)
+
+}
+Table Order_item{
+id uuid [pk]
+order_id uuid 
+clothes_variant_id uuid
+quantity int 
+unit_price decimal(5,2)
+
+
+}
+// Relationships
+REF user_account_role_ref: User_account.role_id > Role.id [delete: set null, update: cascade]
+REF clothes_photo_ref: clothes.photo_id > Photo.id [delete: set null, update: cascade]
+REF clothes_type_ref: clothes.clothes_type_id > Clothes_type.id [delete: set null, update: cascade]
+REF clothes_variant_clothes_ref: clothes_variant.clothes_id > clothes.id [delete: cascade, update: cascade]
+REF clothes_variant_color_ref: clothes_variant.clothes_color_id > Clothes_color.id [delete: set null, update: cascade]
+REF clothes_variant_size_ref: clothes_variant.clothes_size_id > Clothes_size.id [delete: set null, update: cascade]
+REF cart_user_ref: Cart.user_id > User_account.id [delete: cascade, update: cascade]
+REF cart_variant_ref: Cart.clothes_variant_id > clothes_variant.id [delete: cascade, update: cascade]
+REF order_user_ref: Order.user_id > User_account.id [delete: cascade, update: cascade]
+REF order_item_order_ref: Order_item.order_id > Order.order_id [delete: cascade, update: cascade]
+REF order_item_variant_ref: Order_item.clothes_variant_id > clothes_variant.id [delete: cascade, update: cascade]
