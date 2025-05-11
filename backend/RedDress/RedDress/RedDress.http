@@ -1,0 +1,6 @@
+@RedDress_HostAddress = http://localhost:5273
+
+GET {{RedDress_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
