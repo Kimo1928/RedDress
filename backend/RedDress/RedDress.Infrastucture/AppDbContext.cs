@@ -30,5 +30,15 @@ namespace RedDress.Infrastucture
         // Define your DbSets for your entities
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserAccount> UserAccounts { get; set; }
+
+        public DbSet<Photo> Photos { get; set; }
+
+        public DbSet<ClothesType> ClothesTypes { get; set; }
+
+        public DbSet<Clothes> Clothes { get; set; }
+
+        public DbSet<ClothesColor> ClothesColors { get; set; }
+
+        public DbSet<ClothesVariant> ClothesVariants { get; set; }
     }
 }
