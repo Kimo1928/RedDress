@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RedDress.Infrastucture;
 
@@ -11,9 +12,11 @@ using RedDress.Infrastucture;
 namespace RedDress.Infrastucture.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250513205523_Adding OrderItem table ")]
+    partial class AddingOrderItemtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,36 +75,6 @@ namespace RedDress.Infrastucture.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("RedDress.Core.Entities.Cart", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<DateTime>("AddedAt")
-                        .HasColumnType("datetime2(3)");
-
-                    b.Property<string>("ClothesVarientId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClothesVarientId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("carts");
                 });
 
             modelBuilder.Entity("RedDress.Core.Entities.Clothes", b =>
@@ -406,25 +379,6 @@ namespace RedDress.Infrastucture.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("RedDress.Core.Entities.Cart", b =>
-                {
-                    b.HasOne("RedDress.Core.Entities.ClothesVariant", "ClothesVariant")
-                        .WithMany()
-                        .HasForeignKey("ClothesVarientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RedDress.Core.Entities.UserAccount", "UserAccount")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ClothesVariant");
-
-                    b.Navigation("UserAccount");
                 });
 
             modelBuilder.Entity("RedDress.Core.Entities.Clothes", b =>

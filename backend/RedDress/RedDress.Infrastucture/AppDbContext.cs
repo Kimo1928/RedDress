@@ -40,5 +40,12 @@ namespace RedDress.Infrastucture
         public DbSet<ClothesColor> ClothesColors { get; set; }
 
         public DbSet<ClothesVariant> ClothesVariants { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderItem> OrderItems { get; set; }
+
+        public DbSet<Cart> carts { get; set; }
+
     }
 }
